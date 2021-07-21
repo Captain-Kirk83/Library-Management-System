@@ -1,10 +1,9 @@
-# Library - CSoC Dev Task 2
+# Library Management System
 
 ## Introduction
 
-Welcome to the Week 2 of CSOC Dev. In this assignment, you will be working on the Django backend of a library web application. A boilerplate has already been created for you and all that remains is to fill in the code wherever we've asked you to, or wherever you feel required.
+In this project, I will be working on the Django backend of a library web application.
 
-A very basic frontend has already been created for visualizing the results. You need not mess with it until the later stages of the assignment.
 
 
 ### Setting up the project
@@ -25,40 +24,28 @@ A very basic frontend has already been created for visualizing the results. You 
 
 
 ## Tasks
-#### Stage 1 (50 Points)
-Complete the following views without altering the frontend. Necessary details have been mentioned as comments in the views themselves. Only a logged in user can view the loaned books or issue a book.
+#### Stage 1
+Only a logged in user can view the loaned books or issue a book.
 
-* Book Detail View
-* Book List View
-* View Loaned Books
-* Issue a Book
+* Book Detail View - Shows the details of a book like no. of copies available, its rating given by users, its genre and author.
+* Book List View - Shows the list of all the books that are available
+* View Loaned Books - Shows the books which are loaned by an authorized user
+* Issue a Book - Implements the function of issuing a book
 
-#### Stage 2 (30 Points)
-Complete the view for returning an issued book. You need to write this view all by yourself.
-* Your view will accept Book Copy ID as an argument and mark the appropriate Book Copy as returned and return an appropriate response.
-* You additionally need to write the JavaScript code to make a POST request to your view and display an appropriate message to the user after the response arrives.
+#### Stage 2
+* We create a view that will accept Book Copy ID as an argument and mark the appropriate Book Copy as returned and return an appropriate response.
+* We additionally write the JavaScript code to make a POST request to your view and display an appropriate message to the user after the response arrives.
 
-#### Stage 3 (60 Points)
-In this stage, you will need to implement a rating system all by yourself.
-* You may need to fiddle around with the models, create some new views and make changes to the existing templates.
-* Your system should allow the user to enter any integer between 0 to 10 (both inclusive) and the final rating would be the average of all the user ratings given to the book and should be a real number.
+#### Stage 3
+In this stage, I implement a rating system.
+* The system allows the user to enter any integer between 0 to 10 (both inclusive) and the final rating would be the average of all the user ratings given to the book and should be a real number.
 * The ratings would be given to a Book issued by a user, and not a Book Copy.
 * The ratings must be modifiable. Also, if a user has rated a book multiple times, then only the last rating given by the user should matter, any previous ratings should not contribute to the average rating of the book.
 * As an example, if there are two users U1 and U2, and they have rated a book as 8 and 10, respectively, then the average rating would be 9.0. If the user U1 later changes the rating to 9, then the average rating of the book should become 9.5.
 * Only a logged in user should be allowed to rate a book, but others may view the average rating of the book.
-* You can add an integer field with a submit button in the Book Detail template or the Book List template itself.
-> **_NOTE:_**  This work must be done in the store app itself.
+* We add an integer field with a submit button in the Book Detail template.
 
-#### Stage 4 (60 Points)
-In the authentication app, fill in the views for login, logout and user registration. You will also need to create basic frontend templates for these views. Refer to the existing templates if you have any issue.
+#### Stage 4
+In the authentication app, views for login, logout and user registration are created. I created basic frontend templates for these views.
 
-## Deadline
-You'll have a week to complete this task. Hence, the deadline of this task is 7th May, 2020.
-
-## Submission
-* Follow the instructions to setup and run this project.
-* Complete the task by making the required changes in the files.
-* When done, commit your work locally and push it to your origin (forked repository).
-* Make a pull request to our repository, stating the tasks which you have completed.
-* Let us review your pull request.
 
