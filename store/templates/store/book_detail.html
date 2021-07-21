@@ -1,0 +1,110 @@
+{% extends "store/base.html" %}
+
+{% block title %}
+<title>{{ book.title }} | Library</title>
+{% endblock %}
+
+{% block content %}
+<h2>Title: {{ book.title }}</h2>
+
+<dl>
+    <dt>Genre:</dt>
+    <dd>{{ book.genre }}</dd>
+    <dt>Author:</dt>
+    <dd>{{ book.author }}</dd>
+    <dt>Description:</dt>
+    <dd>{{ book.description }}</dd>
+    <dt>Rating:</dt>
+    <dd>{{ book.rating }}</dd>
+    <dt>MRP:</dt>
+    <dd>Rs. {{ book.mrp }}</dd>
+    <dt>Available Copies:</dt>
+    <dd>{{ num_available }}</dd>
+</dl>
+<button class="btn btn-primary" id="loan-button">Loan {{ book.title }}</button>
+<br />
+<br />
+<div class="row justify-content-start">
+	<div class="input-group mb-2 col-sm-2">
+		<select class="custom-select" id="ratingsystem">
+		  <option selected value="">Rating...</option>
+		  <option value="1">1</option>
+		  <option value="2">2</option>
+		  <option value="3">3</option>
+		  <option value="4">4</option>
+		  <option value="5">5</option>
+		  <option value="6">6</option>
+		  <option value="7">7</option>
+		  <option value="8">8</option>
+		  <option value="9">9</option>
+		  <option value="10">10</option>
+		</select>
+		<div class="input-group-prepend">
+			<button class="btn btn-primary" type="button" id="rate-button">Rate</button>
+		</div>
+	</div>
+</div>
+{% if user.is_authenticated %}
+	<script>
+	$("#rate-button").click(function(){
+		var rate=document.getElementById("ratingsystem");
+		var selectedRate = parseInt(rate.value);
+		console.log('Rate:'+selectedRate);
+		if (selectedRate>0 && selectedRate<=10)
+		{
+			$.ajax({
+			url: "{% url 'rate-book' %}",
+			method: "POST",
+			data: {
+				bid: {{ book.id }},
+				rating: selectedRate
+			},
+			success: function(data, status, xhr){
+					alert(data['message']);
+					window.location.replace("/book/{{ book.id }}/");
+			},
+			error: function(xhr, status, err){
+				alert("Enter you did not select a rating or you are not logged in!");
+				}
+
+			})
+		}
+		else{
+			alert("Enter you did not select a rating or you are not logged in!");
+		}
+		
+	});	
+	$("#loan-button").click(function(){
+		$.ajax({
+			url: "{% url 'loan-book' %}",
+			method: "POST",
+			data: {
+				bid: {{ book.id }}
+			},
+			success: function(data, status, xhr){
+				if(data['message'] == "success"){
+					alert("Book successfully issued");
+					window.location.replace("/books/loaned");
+				}
+				else{
+					alert("Unable to issue this book");
+				}
+			},
+			error: function(xhr, status, err){
+				alert("Some error occured");
+			}
+
+		})
+	})
+	</script>
+{% else %}
+	<script>
+		$("#rate-button").click(function(){
+			alert('You must be logged in!')
+		});
+		$("#loan-button").click(function(){
+			alert('You must be logged in!')
+		});
+	</script>
+{% endif %}
+{% endblock %}
